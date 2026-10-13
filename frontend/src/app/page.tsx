@@ -19,9 +19,15 @@ interface DbInfo {
   delete_allowed: boolean;
 }
 
-// In Production (Render/Cloud), this can be set to the Backend Service URL,
-// or left empty to use Next.js internal proxy.
-const API_BASE_URL = (process.env.NEXT_PUBLIC_API_URL || "").replace(/\/$/, "");
+const getApiBaseUrl = () => {
+  let url = process.env.NEXT_PUBLIC_API_URL || "";
+  if (!url) return "";
+  if (!url.startsWith("http://") && !url.startsWith("https://")) {
+    url = `https://${url}`;
+  }
+  return url.replace(/\/$/, "");
+};
+const API_BASE_URL = getApiBaseUrl();
 
 export default function Home() {
   const [countries, setCountries] = useState<Country[]>([]);
