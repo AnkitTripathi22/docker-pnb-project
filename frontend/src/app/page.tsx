@@ -19,15 +19,9 @@ interface DbInfo {
   delete_allowed: boolean;
 }
 
-const getApiBaseUrl = () => {
-  let url = process.env.NEXT_PUBLIC_API_URL || "";
-  if (!url) return "";
-  if (!url.startsWith("http://") && !url.startsWith("https://")) {
-    url = `https://${url}`;
-  }
-  return url.replace(/\/$/, "");
-};
-const API_BASE_URL = getApiBaseUrl();
+// Using relative path so client browser always queries the same origin
+// Next.js Server Route Handler (/api/[...path]) securely proxies to FastAPI backend
+const API_BASE_URL = "";
 
 export default function Home() {
   const [countries, setCountries] = useState<Country[]>([]);
