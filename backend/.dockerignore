@@ -1,0 +1,26 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment files (Docker Compose handles .env via env_file)
+.env
+.env.*
+!.env.example
+
+# Git & Docker metadata
+.git/
+.gitignore
+.dockerignore
+Dockerfile
+
+# IDE & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

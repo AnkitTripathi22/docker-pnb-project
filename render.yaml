@@ -1,0 +1,46 @@
+services:
+  # 1. FastAPI Backend Web Service
+  - type: web
+    name: pnb-fastapi-backend
+    runtime: docker
+    dockerContext: backend
+    dockerfilePath: backend/Dockerfile
+    plan: free
+    region: oregon
+    healthCheckPath: /
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: APP_NAME
+        value: FastAPI Docker PNB Service
+      - key: DB_USER
+        value: postgres
+      - key: DB_PASS
+        sync: false
+      - key: DB_HOST
+        value: 13.234.155.172
+      - key: DB_PORT
+        value: 5432
+      - key: DB_NAME
+        value: jrp_pnb
+      - key: DATABASE_URL
+        sync: false
+
+  # 2. Next.js Frontend Web Service
+  - type: web
+    name: pnb-nextjs-frontend
+    runtime: docker
+    dockerContext: frontend
+    dockerfilePath: frontend/Dockerfile
+    plan: free
+    region: oregon
+    healthCheckPath: /
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: NEXT_PUBLIC_API_URL
+        fromService:
+          type: web
+          name: pnb-fastapi-backend
+          property: host
+

@@ -1,0 +1,23 @@
+# Local environment files (Secrets never go to GitHub)
+*.env
+*.env.local
+.env
+.env.*
+!.env.example
+
+# Temporary executables & logs
+cloudflared.exe
+*.log
+.DS_Store
+Thumbs.db
+
+# Dependencies & build outputs
+**/node_modules/
+**/.next/
+**/out/
+**/build/
+**/__pycache__/
+**/*.py[cod]
+**/venv/
+**/.venv/
+**/env/
