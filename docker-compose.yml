@@ -19,6 +19,9 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     container_name: nextjs_frontend
+    environment:
+      - BACKEND_URL=http://backend:8000
+      - BACKEND_INTERNAL_URL=http://backend:8000
     env_file:
       - ./frontend/.env
     ports:

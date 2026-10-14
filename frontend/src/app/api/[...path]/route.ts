@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 
-// Fallback to the live Render backend URL if not set
+// Fallback to local Docker backend or Render backend
 const getBackendBaseUrl = () => {
   let raw =
     process.env.BACKEND_URL ||
     process.env.BACKEND_INTERNAL_URL ||
-    "https://pnb-fastapi-backend.onrender.com";
+    "http://backend:8000";
 
   // Local Docker Compose bridge support
   if (raw.includes("backend:8000")) {
@@ -94,3 +94,4 @@ export async function PUT(
     );
   }
 }
+
