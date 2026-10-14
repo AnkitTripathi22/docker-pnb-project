@@ -33,8 +33,19 @@ export async function GET(
     const targetUrl = `${baseUrl}/api/${subPath}`;
 
     const res = await fetch(targetUrl, { cache: "no-store" });
-    const data = await res.json();
-    return NextResponse.json(data, { status: res.status });
+    const text = await res.text();
+    try {
+      const data = JSON.parse(text);
+      return NextResponse.json(data, { status: res.status });
+    } catch {
+      return NextResponse.json(
+        {
+          detail:
+            "Backend server is waking up from sleep mode (Render Cold Start). Please wait 20-30 seconds and refresh.",
+        },
+        { status: 503 }
+      );
+    }
   } catch (err: any) {
     return NextResponse.json(
       { detail: `Server Proxy Error: ${err.message}` },
@@ -59,8 +70,19 @@ export async function POST(
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
-    const data = await res.json();
-    return NextResponse.json(data, { status: res.status });
+    const text = await res.text();
+    try {
+      const data = JSON.parse(text);
+      return NextResponse.json(data, { status: res.status });
+    } catch {
+      return NextResponse.json(
+        {
+          detail:
+            "Backend server is waking up from sleep mode. Please wait 20 seconds and try again.",
+        },
+        { status: 503 }
+      );
+    }
   } catch (err: any) {
     return NextResponse.json(
       { detail: `Server Proxy Error: ${err.message}` },
@@ -85,8 +107,19 @@ export async function PUT(
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
-    const data = await res.json();
-    return NextResponse.json(data, { status: res.status });
+    const text = await res.text();
+    try {
+      const data = JSON.parse(text);
+      return NextResponse.json(data, { status: res.status });
+    } catch {
+      return NextResponse.json(
+        {
+          detail:
+            "Backend server is waking up from sleep mode. Please wait 20 seconds and try again.",
+        },
+        { status: 503 }
+      );
+    }
   } catch (err: any) {
     return NextResponse.json(
       { detail: `Server Proxy Error: ${err.message}` },
